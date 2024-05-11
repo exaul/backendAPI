@@ -41,13 +41,16 @@ router.get("/users/:uid", (req, res, next) => {
       "Lugar no existe para el usuario especificado.",
       404
     );
-    throw (error);
+    throw error;
   }
   res.json({ places });
 });
 
-router.post('/', (req, res, next) =>{
-  
+router.post("/", (req, res, next) => {
+  const { id, title, creator } = req.body;
+  const createdPlace = { title, creator };
+  DUMMY_PLACES.push(createdPlace);
+  res.status(201).json({ place: createdPlace });
 });
 
 module.exports = router;
