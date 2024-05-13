@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { v4: uuidv4 } = require("uuid");
 const HttpError = require("../models/http-error");
 
 const DUMMY_PLACES = [
@@ -47,8 +48,9 @@ router.get("/users/:uid", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  const { id, title, creator } = req.body;
-  const createdPlace = { title, creator };
+  const { title, creator } = req.body;
+  const id = uuidv4();
+  const createdPlace = { id, title, creator};
   DUMMY_PLACES.push(createdPlace);
   res.status(201).json({ place: createdPlace });
 });
